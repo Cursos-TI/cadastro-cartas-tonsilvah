@@ -1,39 +1,42 @@
-#include <stdio.h>
+#include <stdio.h> 
 
 int main() {
 
-    //VARIAVEIS CARTA 1
+    // Variáveis para a Carta 1
     char estado1;
     char codigoCarta1[5];
     char nomeCidade1[50];
-    int populacao1;
+    unsigned long int populacao1; // Modificador de tipo aplicado
     float area1;
     float pib1;
     int pontosTuristicos1;
     float densidadePopulacional1;
     float pibPerCapita1;
+    float superPoder1; // Novo atributo
 
-    //VARIAVEIS CARTA 2
+    // Variáveis para a Carta 2
     char estado2;
     char codigoCarta2[5];
     char nomeCidade2[50];
-    int populacao2;
+    unsigned long int populacao2; // Modificador de tipo aplicado
     float area2;
     float pib2;
     int pontosTuristicos2;
     float densidadePopulacional2;
     float pibPerCapita2;
+    float superPoder2; // Novo atributo
 
     //ENTRADA DE DADOS DA CARTA 1
-    printf("Cadastro da Carta 1\n");
-    printf("Digite o Estado (uma letra de A a H): ");
+    printf("--- Cadastro da Carta 1 ---\n");
+    printf("Digite o Estado (A-H): ");
     scanf(" %c", &estado1);
     printf("Digite o Codigo da Carta (ex: A01): ");
     scanf("%s", codigoCarta1);
-    printf("Digite o Nome da Cidade (use '_' para espacos, ex: Sao_Paulo): ");
+    printf("Digite o Nome da Cidade (use '_' para espacos): ");
     scanf("%s", nomeCidade1);
     printf("Digite a Populacao: ");
-    scanf("%d", &populacao1);
+    // Usamos "%lu" para ler um 'unsigned long int'
+    scanf("%lu", &populacao1);
     printf("Digite a Area (em km2): ");
     scanf("%f", &area1);
     printf("Digite o PIB (em bilhoes de reais): ");
@@ -43,15 +46,15 @@ int main() {
     printf("\n");
 
     //ENTRADA DE DADOS DA CARTA 2
-    printf("Cadastro da Carta 2\n");
-    printf("Digite o Estado (uma letra de A a H): ");
+    printf("--- Cadastro da Carta 2 ---\n");
+    printf("Digite o Estado (A-H): ");
     scanf(" %c", &estado2);
     printf("Digite o Codigo da Carta (ex: B02): ");
     scanf("%s", codigoCarta2);
     printf("Digite o Nome da Cidade (use '_' para espacos): ");
     scanf("%s", nomeCidade2);
     printf("Digite a Populacao: ");
-    scanf("%d", &populacao2);
+    scanf("%lu", &populacao2);
     printf("Digite a Area (em km2): ");
     scanf("%f", &area2);
     printf("Digite o PIB (em bilhoes de reais): ");
@@ -60,43 +63,78 @@ int main() {
     scanf("%d", &pontosTuristicos2);
     printf("\n");
 
-    //DENSIDADE E PIB PER CAPITA 1
-    densidadePopulacional1 = populacao1 / area1;
-    pibPerCapita1 = (pib1 * 1000000000) / populacao1;
+    // Densidade e PIB per Capita
+    densidadePopulacional1 = (float)populacao1 / area1;
+    pibPerCapita1 = (pib1 * 1000000000) / (float)populacao1;
+    densidadePopulacional2 = (float)populacao2 / area2;
+    pibPerCapita2 = (pib2 * 1000000000) / (float)populacao2;
 
-    //DENSIDADE E PIB PER CAPITA 1
-    densidadePopulacional2 = populacao2 / area2;
-    pibPerCapita2 = (pib2 * 1000000000) / populacao2;
+    // Cálculo do Super Poder para a Carta 1
+    superPoder1 = (float)populacao1 + area1 + (pib1 * 1000000000) +
+                  (float)pontosTuristicos1 + pibPerCapita1 + (1.0 / densidadePopulacional1);
 
-    //EXIBIÇÃO DOS DADOS COMPLETOS
-    printf("CARTAS CADASTRADAS\n");
+    // Cálculo do Super Poder para a Carta 2
+    superPoder2 = (float)populacao2 + area2 + (pib2 * 1000000000) +
+                  (float)pontosTuristicos2 + pibPerCapita2 + (1.0 / densidadePopulacional2);
 
-    // Dados completos da Carta 1
-    printf("--- Carta 1 ---\n");
-    printf("Estado: %c\n", estado1);
-    printf("Codigo: %s\n", codigoCarta1);
-    printf("Nome da Cidade: %s\n", nomeCidade1);
-    printf("Populacao: %d\n", populacao1);
-    printf("Area: %.2f km^2\n", area1);
-    printf("PIB: %.2f bilhoes de reais\n", pib1);
-    printf("Numero de Pontos Turisticos: %d\n", pontosTuristicos1);
-    // Exibição dos novos dados
-    printf("Densidade Populacional: %.2f hab/km^2\n", densidadePopulacional1);
-    printf("PIB per Capita: R$ %.2f\n", pibPerCapita1);
-    printf("\n");
 
-    // Dados completos da Carta 2
-    printf("--- Carta 2 ---\n");
-    printf("Estado: %c\n", estado2);
-    printf("Codigo: %s\n", codigoCarta2);
-    printf("Nome da Cidade: %s\n", nomeCidade2);
-    printf("Populacao: %d\n", populacao2);
-    printf("Area: %.2f km^2\n", area2);
-    printf("PIB: %.2f bilhoes de reais\n", pib2);
-    printf("Numero de Pontos Turisticos: %d\n", pontosTuristicos2);
-    // Exibição dos novos dados
-    printf("Densidade Populacional: %.2f hab/km^2\n", densidadePopulacional2);
-    printf("PIB per Capita: R$ %.2f\n", pibPerCapita2);
+    printf("COMPARACAO DE CARTAS\n");
 
-    return 0; // Fim do programa
+    // Comparação de População
+    printf("Populacao: ");
+    if (populacao1 > populacao2) {
+        printf("Carta 1 venceu (1)\n");
+    } else {
+        printf("Carta 2 venceu (0)\n");
+    }
+
+    // Comparação de Área
+    printf("Area: ");
+    if (area1 > area2) {
+        printf("Carta 1 venceu (1)\n");
+    } else {
+        printf("Carta 2 venceu (0)\n");
+    }
+
+    // Comparação de PIB
+    printf("PIB: ");
+    if (pib1 > pib2) {
+        printf("Carta 1 venceu (1)\n");
+    } else {
+        printf("Carta 2 venceu (0)\n");
+    }
+
+    // Comparação de Pontos Turísticos
+    printf("Pontos Turisticos: ");
+    if (pontosTuristicos1 > pontosTuristicos2) {
+        printf("Carta 1 venceu (1)\n");
+    } else {
+        printf("Carta 2 venceu (0)\n");
+    }
+    
+    // Comparação de Densidade Populacional (menor vence)
+    printf("Densidade Populacional: ");
+    if (densidadePopulacional1 < densidadePopulacional2) {
+        printf("Carta 1 venceu (1)\n");
+    } else {
+        printf("Carta 2 venceu (0)\n");
+    }
+    
+    // Comparação de PIB per Capita
+    printf("PIB per Capita: ");
+    if (pibPerCapita1 > pibPerCapita2) {
+        printf("Carta 1 venceu (1)\n");
+    } else {
+        printf("Carta 2 venceu (0)\n");
+    }
+
+    // Comparação de Super Poder
+    printf("Super Poder: ");
+    if (superPoder1 > superPoder2) {
+        printf("Carta 1 venceu (1)\n");
+    } else {
+        printf("Carta 2 venceu (0)\n");
+    }
+
+    return 0;
 }
